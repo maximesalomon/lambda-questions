@@ -17,7 +17,9 @@ const Option = styled.button `
     margin: 10px;
 `
 
-const Correct = styled.span`
+const ShowAnswer = styled.p `
+    display: ${props => props.true ? "block" : "none"};
+    color: green;
 `
 
 const questions = [
@@ -28,16 +30,15 @@ const questions = [
     }
 ]
 
-
 class Question extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             questionNumber: 0,
             questionContent: "",
             options: [],
             answer: "",
-            selectedOption: null,
+            hasAnswered: "false",
             correctAnswers: 0
         };
       }
@@ -48,20 +49,33 @@ class Question extends React.Component {
             options: questions[this.state.questionNumber].options,
             answer: questions[this.state.questionNumber].answer,
         })
-    }  
+    }
+
+    answerIsRight = (e) => {
+        this.setState({
+            hasAnswered: "true"
+        })
+        const answer = this.state.answer;
+        if (answer === e.target.value) {
+            alert("true");
+            this.setState((state, props) => {
+                return {correctAnswers: state.correctAnswers + 1};
+              });
+        } else alert("false");   
+    }
     
     render() {
         return (
         <QuestionContainer id="questions">
-            <h2 id="question">{this.state.questionContent}</h2>
+            <h2 id="question">{this.state.questionNumber + 1} - {this.state.questionContent}</h2>
             {
             this.state.options.map((option, i) => {
-                return <Answers key={i}><Option type="checkbox" data-option={option}>{option}</Option></Answers>
+                return <Answers key={i}><Option onClick={this.answerIsRight} value={option}>{option}</Option></Answers>
             })
             }
-            <p>Correct answers: <Correct>0 / 0</Correct></p>
+            <p>Correct answers: {this.state.correctAnswers} / {this.state.questionNumber}</p>
             <br/>
-            <p>{this.state.answer}</p>
+            <ShowAnswer {...this.state.hasAnswered}>The right answer was {this.state.answer}</ShowAnswer>
         </QuestionContainer>
         );
     }
