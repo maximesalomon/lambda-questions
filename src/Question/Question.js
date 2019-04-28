@@ -17,11 +17,6 @@ const Option = styled.button `
     margin: 10px;
 `
 
-const ShowAnswer = styled.p `
-    display: ${props => props.true ? "block" : "none"};
-    color: green;
-`
-
 const questions = [
     {
         question: "What's the latest version of HTML?",
@@ -34,48 +29,65 @@ class Question extends React.Component {
     constructor() {
         super();
         this.state = {
-            questionNumber: 0,
+            questionsAnswered: 0,
             questionContent: "",
             options: [],
             answer: "",
-            hasAnswered: "false",
+            hasAnswered: false,
             correctAnswers: 0
         };
       }
 
     componentDidMount() {
         this.setState({
-            questionContent: questions[this.state.questionNumber].question,
-            options: questions[this.state.questionNumber].options,
-            answer: questions[this.state.questionNumber].answer,
+            questionContent: questions[this.state.questionsAnswered].question,
+            options: questions[this.state.questionsAnswered].options,
+            answer: questions[this.state.questionsAnswered].answer,
         })
     }
 
-    answerIsRight = (e) => {
+    answer = (e) => {
         this.setState({
-            hasAnswered: "true"
+            hasAnswered: true
         })
         const answer = this.state.answer;
-        if (answer === e.target.value) {
-            alert("true");
-            this.setState((state, props) => {
-                return {correctAnswers: state.correctAnswers + 1};
-              });
-        } else alert("false");   
+        if (this.state.hasAnswered === false) {
+            if (answer === e.target.value) {
+                this.setState((state, props) => {
+                    return { correctAnswers: state.correctAnswers + 1};
+                  });
+                this.setState((state, props) => {
+                return { questionsAnswered: state.questionsAnswered + 1};
+                });
+            } else this.setState((state, props) => {
+                return { questionsAnswered: state.questionsAnswered + 1};
+                });
+        }
     }
+    nextQuestion = () => {
+        alert("Next question")
+    };
     
     render() {
         return (
         <QuestionContainer id="questions">
-            <h2 id="question">{this.state.questionNumber + 1} - {this.state.questionContent}</h2>
+            <h2 id="question">{this.state.questionContent}</h2>
             {
             this.state.options.map((option, i) => {
-                return <Answers key={i}><Option onClick={this.answerIsRight} value={option}>{option}</Option></Answers>
+                return <Answers key={i}><Option onClick={this.answer} value={option}>{option}</Option></Answers>
             })
             }
-            <p>Correct answers: {this.state.correctAnswers} / {this.state.questionNumber}</p>
             <br/>
-            <ShowAnswer {...this.state.hasAnswered}>The right answer was {this.state.answer}</ShowAnswer>
+            <p>Answer: {this.state.hasAnswered ? this.state.answer : ""}</p>
+            <br/>
+            <p>Score = {this.state.correctAnswers} / {this.state.questionsAnswered}</p>
+            <br/>
+
+            {
+                this.state.hasAnswered
+                ? <button onClick={this.nextQuestion}>Next question</button>
+                : <p></p>
+            }
         </QuestionContainer>
         );
     }
