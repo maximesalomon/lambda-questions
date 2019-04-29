@@ -22,7 +22,27 @@ const questions = [
         question: "What's the latest version of HTML?",
         options: ["HTML3", "HTML4", "HTML5", "HTML6"],
         answer: "HTML5",
-    }
+    },
+    {
+        question: "What does CSS stand for?",
+        options: ["Computer Style Sheets", "Creative Style Sheets", "Colorful Style Sheets", "Cascading Style Sheets"],
+        answer: "Cascading Style Sheets",
+    },
+    {
+        question: "How do you insert a comment in a CSS file?",
+        options: ["// This is a comment","/* This is a comment */", "// This is a comment //", "`This is a comment`"],
+        answer: "/* This is a comment */",
+    },
+    {
+        question: "What is the correct CSS syntax for making all the <p> elements bold?",
+        options: ["p {font-weight:bold;}", "p style = font-size:bold", "p {text-size:bold;}", "p {text-weight:bold;}"],
+        answer: "p {font-weight:bold;}",
+    },
+    {
+        question: "How do you make each word in a text start with a capital letter?",
+        options: ["text-style:captialize", "transform:capitalize", "text-transform:capitalize", "You can't do that with CSS"],
+        answer: "text-transform:capitalize",
+    },
 ]
 
 class Question extends React.Component {
@@ -65,7 +85,12 @@ class Question extends React.Component {
         }
     }
     nextQuestion = () => {
-        alert("Next question")
+        this.setState({
+            questionContent: questions[this.state.questionsAnswered].question,
+            options: questions[this.state.questionsAnswered].options,
+            answer: questions[this.state.questionsAnswered].answer,
+            hasAnswered: false
+        })
     };
     
     render() {
@@ -82,11 +107,12 @@ class Question extends React.Component {
             <br/>
             <p>Score = {this.state.correctAnswers} / {this.state.questionsAnswered}</p>
             <br/>
-
             {
-                this.state.hasAnswered
-                ? <button onClick={this.nextQuestion}>Next question</button>
-                : <p></p>
+                this.state.questionsAnswered === 5
+                ? <p>👆This is your final score</p>
+                :  this.state.hasAnswered
+                    ? <button onClick={this.nextQuestion}>Next question</button>
+                    : <p></p>
             }
         </QuestionContainer>
         );
