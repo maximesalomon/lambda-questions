@@ -49,24 +49,24 @@ const questions = [
         answer: "git",
     },
     {
-        question: "What's the name of the distributed version-control system software engineers use?",
-        options: ["gps", "npm", "git", "atm"],
-        answer: "git",
-    },
-    {
         question: "How do you enable Flexbox?",
         options: ["flex:display", "flex:start", "flex:block", "display:flex"],
         answer: "display:flex",
     },
     {
-        question: "What's the name of the distributed version-control system software engineers use?",
-        options: ["gps", "npm", "git", "atm"],
+        question: "What is not one of the 4 box-model element?",
+        options: ["content", "margin", "radius", "border"],
         answer: "git",
     },
     {
-        question: "What's the name of the distributed version-control system software engineers use?",
-        options: ["gps", "npm", "git", "atm"],
-        answer: "git",
+        question: "Which property is used to change the font of an element?",
+        options: ["font-style", "font-group", "font", "font-family"],
+        answer: "font-family",
+    },
+    {
+        question: "How do you remove bullet points from lists?",
+        options: ["list-style-type:none;", "list-style-type-bullet:none;", "list-style:no-bullet;", "list-style:none;"],
+        answer: "list-style-type:none;",
     },
 ]
 
