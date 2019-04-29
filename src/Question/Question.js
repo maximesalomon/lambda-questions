@@ -43,12 +43,38 @@ const questions = [
         options: ["text-style:captialize", "transform:capitalize", "text-transform:capitalize", "You can't do that with CSS"],
         answer: "text-transform:capitalize",
     },
+    {
+        question: "What's the name of the distributed version-control system software engineers use?",
+        options: ["gps", "npm", "git", "atm"],
+        answer: "git",
+    },
+    {
+        question: "What's the name of the distributed version-control system software engineers use?",
+        options: ["gps", "npm", "git", "atm"],
+        answer: "git",
+    },
+    {
+        question: "How do you enable Flexbox?",
+        options: ["flex:display", "flex:start", "flex:block", "display:flex"],
+        answer: "display:flex",
+    },
+    {
+        question: "What's the name of the distributed version-control system software engineers use?",
+        options: ["gps", "npm", "git", "atm"],
+        answer: "git",
+    },
+    {
+        question: "What's the name of the distributed version-control system software engineers use?",
+        options: ["gps", "npm", "git", "atm"],
+        answer: "git",
+    },
 ]
 
 class Question extends React.Component {
     constructor() {
         super();
         this.state = {
+            questionNumber: 1,
             questionsAnswered: 0,
             questionContent: "",
             options: [],
@@ -77,10 +103,10 @@ class Question extends React.Component {
                     return { correctAnswers: state.correctAnswers + 1};
                   });
                 this.setState((state, props) => {
-                return { questionsAnswered: state.questionsAnswered + 1};
+                    return { questionsAnswered: state.questionsAnswered + 1};
                 });
             } else this.setState((state, props) => {
-                return { questionsAnswered: state.questionsAnswered + 1};
+                    return { questionsAnswered: state.questionsAnswered + 1};
                 });
         }
     }
@@ -91,11 +117,15 @@ class Question extends React.Component {
             answer: questions[this.state.questionsAnswered].answer,
             hasAnswered: false
         })
+        this.setState((state, props) => {
+            return { questionNumber: state.questionNumber + 1};
+        });
     };
     
     render() {
         return (
         <QuestionContainer id="questions">
+            <p>Question {this.state.questionNumber} / 10</p>
             <h2 id="question">{this.state.questionContent}</h2>
             {
             this.state.options.map((option, i) => {
@@ -108,7 +138,7 @@ class Question extends React.Component {
             <p>Score = {this.state.correctAnswers} / {this.state.questionsAnswered}</p>
             <br/>
             {
-                this.state.questionsAnswered === 5
+                this.state.questionsAnswered === 10
                 ? <p>👆This is your final score</p>
                 :  this.state.hasAnswered
                     ? <button onClick={this.nextQuestion}>Next question</button>
