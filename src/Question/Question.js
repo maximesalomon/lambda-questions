@@ -56,7 +56,7 @@ const questions = [
     {
         question: "What is not one of the 4 box-model element?",
         options: ["content", "margin", "radius", "border"],
-        answer: "git",
+        answer: "radius",
     },
     {
         question: "Which property is used to change the font of an element?",
@@ -110,19 +110,25 @@ class Question extends React.Component {
                 });
         }
     }
+
     nextQuestion = () => {
         this.setState({
             questionContent: questions[this.state.questionsAnswered].question,
             options: questions[this.state.questionsAnswered].options,
             answer: questions[this.state.questionsAnswered].answer,
-            hasAnswered: false
+            hasAnswered: false,
         })
+        localStorage.setItem('question', this.state.questionNumber + 1);
         this.setState((state, props) => {
             return { questionNumber: state.questionNumber + 1};
         });
     };
     
     render() {
+        if(this.state.questionsAnswered === 10) {
+            localStorage.setItem('done', true);
+        }
+        
         return (
         <QuestionContainer id="questions">
             <p>Question {this.state.questionNumber} / 10</p>
