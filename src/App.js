@@ -1,7 +1,7 @@
 import React from 'react';
 import Question from './Question/Question';
 
-function App() {
+const App = () => {
   return (
     <main className="App">
       <h1>Lambda Questions</h1>
