@@ -19,20 +19,28 @@ const Option = styled.button`
 `;
 
 const Question = () => {
-  const [questionNumber] = useState(1);
-  const [questionsAnswered] = useState(0);
-  const [questionContent] = useState(questions[0].question);
-  const [options] = useState(questions[0].options);
+  const [questionNumber, setQuestionNumber] = useState(1);
+  const [questionsAnswered, setQuestionsAnswered] = useState(0);
+  const [questionContent, setQuestionContent] = useState(questions[0].question);
+  const [options, setOptions] = useState(questions[0].options);
   const [hasAnswered, setHasAnswered] = useState(false);
-  const [answer] = useState(questions[0].answer);
-  const [correctAnswers] = useState(0);
+  const [answer, setAnswer] = useState(questions[0].answer);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
 
   const selectedAnswer = e => {
     setHasAnswered(true);
+    setQuestionsAnswered(questionsAnswered + 1);
+    if(answer === e.target.value) {
+      setCorrectAnswers(correctAnswers + 1);
+    }
   };
 
   const nextQuestion = e => {
-    console.log("NEXT")
+    setQuestionContent(questions[questionsAnswered].question);
+    setOptions(questions[questionsAnswered].options);
+    setAnswer(questions[questionsAnswered].answer);
+    setHasAnswered(false);
+    setQuestionNumber(questionNumber + 1)
   };
 
   return (
