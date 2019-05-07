@@ -18,7 +18,7 @@ const Option = styled.button`
   margin: 10px;
 `;
 
-const Question = ({week, setWeek}) => {
+const Question = ({week, setWeek, setScoreW1}) => {
   const [questionNumber, setQuestionNumber] = useState(1);
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const [questionContent, setQuestionContent] = useState(questions[week - 1].question);
@@ -34,10 +34,10 @@ const Question = ({week, setWeek}) => {
       if(answer === e.target.value) {
         setCorrectAnswers(correctAnswers + 1);
       }
-    } else setHasAnswered(true);
+    }
   };
 
-  const nextQuestion = e => {
+  const nextQuestion = () => {
     setQuestionContent(questions[questionsAnswered].question);
     setOptions(questions[questionsAnswered].options);
     setAnswer(questions[questionsAnswered].answer);
@@ -65,16 +65,23 @@ const Question = ({week, setWeek}) => {
         Score = {correctAnswers} / {questionsAnswered}
       </p>
       <br />
-      {questionsAnswered === 10 ? (
-        <>
-        <p>👆This is your final score</p>
-        <button onClick={() => setWeek(0)}>Back to Dasboard</button>
-        </>
-      ) : hasAnswered ? (
-        <button onClick={nextQuestion}>Next question</button>
-      ) : (
-        <p></p>
-      )}
+      {
+        questionsAnswered === 10 ? (
+          <>
+          <p>👆This is your final score</p>
+          <button onClick={() =>
+            {
+              setWeek(0);
+              setScoreW1(correctAnswers);
+              localStorage.setItem('scoreW1', correctAnswers)
+              }} >Back to Dasboard</button>
+          </>
+        ) : hasAnswered ? (
+          <button onClick={nextQuestion}>Next question</button>
+        ) : (
+          <p></p>
+        )
+      }
     </QuestionContainer>
   );
 };

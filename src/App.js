@@ -5,11 +5,16 @@ const App = () => {
   const [tempName, setTempName] = useState("");
   const [name, setName] = useState("");
   const [week, setWeek] = useState(0);
+  const [scoreW1, setScoreW1] = useState("X");
+  const [scoreW2, setScoreW2] = useState("X");
 
   useLayoutEffect(() => {
     if(localStorage.name !== undefined) {
       setName(localStorage.name);
-    } else return
+    }
+    if(localStorage.scoreW1 !== undefined) {
+      setScoreW1(localStorage.scoreW1);
+    }
   });
 
   const changeTempName = (e) => {
@@ -23,6 +28,7 @@ const App = () => {
 
   return (
     <main className="App">
+      <h1>Lambda Questions</h1>
       {
         name === ""
         ? 
@@ -36,15 +42,22 @@ const App = () => {
         :
           week === 0 ?
             <>
-            <h1>Lambda Questions</h1>
             <br/>
             <h2>Hello {name}!</h2>
             <br/>
             <p>Select a week to test your skills</p>
-            <button onClick={() => setWeek(1)}>Week 1</button>
-            <button onClick={() => setWeek(2)}>Week 2</button>
+            <div>
+              <p>Score Week 1 = {scoreW1}</p>
+              {
+                localStorage.scoreW1 !== undefined ? <p/> : <button onClick={() => setWeek(1)}>Week 1</button>
+              }
+            </div>
+            <div>
+              <p>Score Week 2 = {scoreW2}</p>
+              <button onClick={() => setWeek(2)}>Week 2</button>
+            </div>
             </>
-            : <Question week={week} setWeek={setWeek} />
+            : <Question week={week} setWeek={setWeek} setScoreW1={setScoreW1} />
       }
     </main>
   );
