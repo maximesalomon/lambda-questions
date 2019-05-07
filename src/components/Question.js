@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import questions from "../data/questions";
+import scores from "../data/questions";
 
 const QuestionContainer = styled.div`
   width: 600px;
@@ -73,8 +74,8 @@ const Question = ({week, setWeek, setScoreW1}) => {
             {
               setWeek(0);
               setScoreW1(correctAnswers);
-              localStorage.setItem('scoreW1', correctAnswers)
-              }} >Back to Dasboard</button>
+              localStorage.setItem('scoreW1', correctAnswers);
+              }}>Back to Dasboard</button>
           </>
         ) : hasAnswered ? (
           <button onClick={nextQuestion}>Next question</button>

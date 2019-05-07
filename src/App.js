@@ -1,12 +1,13 @@
 import React, { useState, useLayoutEffect } from 'react';
 import Question from './components/Question';
+import scores from "../src/data/scores";
 
 const App = () => {
   const [tempName, setTempName] = useState("");
   const [name, setName] = useState("");
   const [week, setWeek] = useState(0);
-  const [scoreW1, setScoreW1] = useState("X");
-  const [scoreW2, setScoreW2] = useState("X");
+  const [scoreW1, setScoreW1] = useState(scores.scoreW1);
+  const [scoreW2, setScoreW2] = useState(scores.scoreW2);
 
   useLayoutEffect(() => {
     if(localStorage.name !== undefined) {
