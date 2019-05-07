@@ -18,13 +18,13 @@ const Option = styled.button`
   margin: 10px;
 `;
 
-const Question = () => {
+const Question = ({week, setWeek}) => {
   const [questionNumber, setQuestionNumber] = useState(1);
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
-  const [questionContent, setQuestionContent] = useState(questions[0].question);
-  const [options, setOptions] = useState(questions[0].options);
+  const [questionContent, setQuestionContent] = useState(questions[week - 1].question);
+  const [options, setOptions] = useState(questions[week - 1].options);
   const [hasAnswered, setHasAnswered] = useState(false);
-  const [answer, setAnswer] = useState(questions[0].answer);
+  const [answer, setAnswer] = useState(questions[week - 1].answer);
   const [correctAnswers, setCorrectAnswers] = useState(0);
 
   const selectedAnswer = e => {
@@ -66,11 +66,14 @@ const Question = () => {
       </p>
       <br />
       {questionsAnswered === 10 ? (
+        <>
         <p>👆This is your final score</p>
+        <button onClick={() => setWeek(0)}>Back to Dasboard</button>
+        </>
       ) : hasAnswered ? (
         <button onClick={nextQuestion}>Next question</button>
       ) : (
-        <p />
+        <p></p>
       )}
     </QuestionContainer>
   );
