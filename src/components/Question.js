@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import questions from "../data/questions";
 
@@ -28,11 +28,13 @@ const Question = () => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
 
   const selectedAnswer = e => {
-    setHasAnswered(true);
-    setQuestionsAnswered(questionsAnswered + 1);
-    if(answer === e.target.value) {
-      setCorrectAnswers(correctAnswers + 1);
-    }
+    if (hasAnswered === false) {
+      setHasAnswered(true);
+      setQuestionsAnswered(questionsAnswered + 1);
+      if(answer === e.target.value) {
+        setCorrectAnswers(correctAnswers + 1);
+      }
+    } else setHasAnswered(true);
   };
 
   const nextQuestion = e => {
